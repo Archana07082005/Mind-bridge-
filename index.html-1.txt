@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Voice Translator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🌐 AI Voice Translator</h1>
+
+    <textarea id="inputText" placeholder="Enter text or speak..." rows="4"></textarea>
+    <select id="language">
+      <option value="Hindi">Hindi</option>
+      <option value="Spanish">Spanish</option>
+      <option value="French">French</option>
+      <option value="German">German</option>
+      <option value="Japanese">Japanese</option>
+    </select>
+
+    <div class="btns">
+      <button onclick="translateText()">Translate</button>
+      <button onclick="startListening()">🎤 Speak</button>
+    </div>
+
+    <div id="output">
+      <h3>Translated Text:</h3>
+      <p id="translatedText"></p>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
