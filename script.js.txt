@@ -1,0 +1,37 @@
+function translateText() {
+  const text = document.getElementById('inputText').value;
+  const language = document.getElementById('language').value;
+
+  fetch('/translate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ text, language })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.translated_text) {
+      document.getElementById('translatedText').textContent = data.translated_text;
+      speakText(data.translated_text);
+    } else {
+      document.getElementById('translatedText').textContent = "Error: " + data.error;
+    }
+  });
+}
+
+function speakText(text) {
+  const speech = new SpeechSynthesisUtterance(text);
+  window.speechSynthesis.speak(speech);
+}
+
+function startListening() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    const spokenText = event.results[0][0].transcript;
+    document.getElementById('inputText').value = spokenText;
+  };
+}
